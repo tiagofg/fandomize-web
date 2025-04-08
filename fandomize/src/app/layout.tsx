@@ -1,15 +1,16 @@
+// layout.tsx
 import type { Metadata } from "next";
 import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
-// Configuração da fonte para títulos (Poppins Bold)
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
   weight: "700",
 });
 
-// Configuração da fonte para o corpo do site (Inter Regular)
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -24,15 +25,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="pt-BR">
-      <body
-        className={`${poppins.variable} ${inter.variable} antialiased`}
-      >
-        {children}
+      <body className={`${poppins.variable} ${inter.variable} antialiased`}>
+        <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#6C5CE7] to-[#00B894]">
+          <Header />
+          <main className="flex flex-grow">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

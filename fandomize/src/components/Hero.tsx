@@ -8,7 +8,7 @@ export default function Hero() {
       </h2>
       <p className="max-w-2xl text-lg md:text-xl font-[Inter] mb-10">
         Transforme fotos comuns em universos extraordinários. Personalize suas imagens
-        com os estilos dos seus personagens favoritos – seja de animes, filmes, séries ou jogos.
+        com os estilos dos seus personagens favoritos – seja de animações, filmes, séries ou jogos.
       </p>
       <Link
         href="/transformar"

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Zelda: Breath of the Wild",
+    "value": "zelda-breath-of-the-wild",
+    "image": "zelda_botw.png",
+    "hover": "Visual cel-shading com natureza vasta e magia discreta."
+  },
+  {
+    "name": "God of War",
+    "value": "god-of-war",
+    "image": "godofwar.png",
+    "hover": "Fantasia nórdica brutal com cenários épicos e mitologia."
+  },
+  {
+    "name": "Hades",
+    "value": "hades",
+    "image": "hades.png",
+    "hover": "Estilo desenhado à mão com cores fortes e visual mitológico."
+  },
+  {
+    "name": "Cuphead",
+    "value": "cuphead",
+    "image": "cuphead.png",
+    "hover": "Desenho animado retrô dos anos 30 com textura vintage."
+  },
+  {
+    "name": "Hollow Knight",
+    "value": "hollow-knight",
+    "image": "hollowknight.png",
+    "hover": "Metroidvania sombrio com silhuetas e atmosfera gótica."
+  },
+  {
+    "name": "Cyberpunk 2077",
+    "value": "cyberpunk-2077",
+    "image": "cyberpunk2077.png",
+    "hover": "Cidade futurista, neons intensos e estilo tecnológico."
+  },
+  {
+    "name": "Genshin Impact",
+    "value": "genshin-impact",
+    "image": "genshinimpact.png",
+    "hover": "Visual anime refinado com cenários naturais e fantasia leve."
+  },
+  {
+    "name": "Persona 5",
+    "value": "persona-5",
+    "image": "persona5.png",
+    "hover": "Estética ousada com contraste forte e clima rebelde."
+  },
+  {
+    "name": "Ori and the Blind Forest",
+    "value": "ori-and-the-blind-forest",
+    "image": "ori.png",
+    "hover": "Floresta mágica com iluminação suave e aura etérea."
+  },
+  {
+    "name": "NieR: Automata",
+    "value": "nier-automata",
+    "image": "nierautomata.png",
+    "hover": "Ficção melancólica com androides e ruínas tecnológicas."
+  }
+]

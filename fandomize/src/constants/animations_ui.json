@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Ghibli",
+    "value": "ghibli",
+    "image": "ghibli.png",
+    "hover": "Visual delicado e mágico, com cenários naturais pintados à mão."
+  },
+  {
+    "name": "Pixar",
+    "value": "pixar",
+    "image": "pixar.png",
+    "hover": "Estilo 3D vibrante com personagens expressivos e realistas."
+  },
+  {
+    "name": "Aranhaverso",
+    "value": "spider-verse",
+    "image": "spiderverse.png",
+    "hover": "Estilo de quadrinhos vibrante com texturas e efeitos visuais únicos."
+  },
+  {
+    "name": "Arcane",
+    "value": "arcane",
+    "image": "arcane.png",
+    "hover": "Arte pintada com sombras fortes e atmosfera sombria e épica."
+  },
+  {
+    "name": "Anime Shonen",
+    "value": "anime-shonen",
+    "image": "animeshonen.png",
+    "hover": "Traços marcantes, ação intensa e clima heróico."
+  },
+  {
+    "name": "Love, Death & Robots",
+    "value": "love-death-robots",
+    "image": "lovedeathrobots.png",
+    "hover": "Futurismo experimental e realismo estilizado."
+  },
+  {
+    "name": "Rick e Morty",
+    "value": "rick-and-morty",
+    "image": "rickandmorty.png",
+    "hover": "Humor ácido com ficção científica e estilo irreverente."
+  },
+  {
+    "name": "Hora de Aventura",
+    "value": "adventure-time",
+    "image": "adventuretime.png",
+    "hover": "Cores chapadas, formas simples e mundo surreal."
+  },
+  {
+    "name": "Coraline",
+    "value": "coraline",
+    "image": "coraline.png",
+    "hover": "Estilo sombrio em stop-motion com visual artesanal."
+  },
+  {
+    "name": "O Evangelho da Meia-Noite",
+    "value": "midnight-gospel",
+    "image": "midnightgospel.png",
+    "hover": "Estilo psicodélico com cores intensas e composições caóticas."
+  }
+]

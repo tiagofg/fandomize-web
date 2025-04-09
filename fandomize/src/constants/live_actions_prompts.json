@@ -1,0 +1,42 @@
+[
+  {
+    "value": "senhor-dos-aneis",
+    "prompt": "Transform the uploaded image into the style of The Lord of the Rings, with epic landscapes, natural scenery, and medieval fantasy clothing."
+  },
+  {
+    "value": "game-of-thrones",
+    "prompt": "Transform the uploaded image into the style of Game of Thrones, with a dark mood, medieval outfits, and dramatic lighting."
+  },
+  {
+    "value": "the-mandalorian",
+    "prompt": "Transform the uploaded image into the style of The Mandalorian, with futuristic armor, desert landscapes, and dramatic lighting."
+  },
+  {
+    "value": "duna",
+    "prompt": "Transform the uploaded image into the style of Dune, with warm desert tones, grand compositions, and a sci-fi atmosphere."
+  },
+  {
+    "value": "blade-runner-2049",
+    "prompt": "Transform the uploaded image into the style of Blade Runner 2049, with neon lighting, fog, and dystopian cityscapes."
+  },
+  {
+    "value": "grand-budapest",
+    "prompt": "Transform the uploaded image into the style of The Grand Budapest Hotel, with pastel colors, perfect symmetry, and refined vintage charm."
+  },
+  {
+    "value": "barbie",
+    "prompt": "Transform the uploaded image into the style of Barbie, with pink tones, glamorous outfits, and a pop chic aesthetic."
+  },
+  {
+    "value": "the-boys",
+    "prompt": "Transform the uploaded image into the style of The Boys, with a gritty urban setting, intense lighting, and dark superhero themes."
+  },
+  {
+    "value": "pantera-negra",
+    "prompt": "Transform the uploaded image into the style of Black Panther, with Afro-futuristic architecture and modern tribal fashion."
+  },
+  {
+    "value": "coringa",
+    "prompt": "Transform the uploaded image into the style of Joker, with dramatic shadows, expressive makeup, and a gritty urban setting."
+  }
+]

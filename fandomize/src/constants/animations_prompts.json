@@ -1,0 +1,42 @@
+[
+  {
+    "value": "ghibli",
+    "prompt": "Transform the uploaded image into the style of Ghibli, with dreamy and delicate art, soft colors, and hand-painted natural backgrounds."
+  },
+  {
+    "value": "pixar",
+    "prompt": "Transform the uploaded image into the style of Pixar, with colorful 3D visuals, exaggerated expressions, and cinematic lighting."
+  },
+  {
+    "value": "spider-verse",
+    "prompt": "Transform the uploaded image into the style of Spider-Verse, with comic book textures, halftone shading, and vibrant action effects."
+  },
+  {
+    "value": "arcane",
+    "prompt": "Transform the uploaded image into the style of Arcane, with painterly textures, dramatic lighting, and a gritty fantasy world."
+  },
+  {
+    "value": "anime-shonen",
+    "prompt": "Transform the uploaded image into the style of Shonen Anime, with sharp lines, energetic poses, and a heroic atmosphere."
+  },
+  {
+    "value": "love-death-robots",
+    "prompt": "Transform the uploaded image into the style of Love, Death & Robots, with cinematic lighting, futuristic elements, and experimental visuals."
+  },
+  {
+    "value": "rick-and-morty",
+    "prompt": "Transform the uploaded image into the style of Rick and Morty, with angular lines, sci-fi backgrounds, and absurd humor."
+  },
+  {
+    "value": "adventure-time",
+    "prompt": "Transform the uploaded image into the style of Adventure Time, with minimalist shapes, surreal worlds, and vibrant flat colors."
+  },
+  {
+    "value": "coraline",
+    "prompt": "Transform the uploaded image into the style of Coraline, with stop-motion textures, eerie lighting, and a mysterious atmosphere."
+  },
+  {
+    "value": "midnight-gospel",
+    "prompt": "Transform the uploaded image into the style of The Midnight Gospel, with psychedelic visuals, chaotic compositions, and intense colors."
+  }
+]

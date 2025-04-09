@@ -1,0 +1,62 @@
+[
+  {
+    "name": "O Senhor dos Anéis",
+    "value": "senhor-dos-aneis",
+    "image": "senhordosaneis.png",
+    "hover": "Fantasia épica com florestas, montanhas e clima medieval."
+  },
+  {
+    "name": "Game of Thrones",
+    "value": "game-of-thrones",
+    "image": "gameofthrones.png",
+    "hover": "Drama medieval sombrio com castelos e batalhas intensas."
+  },
+  {
+    "name": "The Mandalorian",
+    "value": "the-mandalorian",
+    "image": "themandalorian.png",
+    "hover": "Ficção espacial com estilo western e visual futurista."
+  },
+  {
+    "name": "Duna",
+    "value": "duna",
+    "image": "duna.png",
+    "hover": "Cenários desérticos com estética sci-fi nobre e minimalista."
+  },
+  {
+    "name": "Blade Runner 2049",
+    "value": "blade-runner-2049",
+    "image": "bladerunner2049.png",
+    "hover": "Ficção futurista distópica com luzes de néon e névoa."
+  },
+  {
+    "name": "O Grande Hotel Budapeste",
+    "value": "grand-budapest",
+    "image": "grandbudapest.png",
+    "hover": "Visual pastel, elegante e simétrico de Wes Anderson."
+  },
+  {
+    "name": "Barbie",
+    "value": "barbie",
+    "image": "barbie.png",
+    "hover": "Estilo pop com cores vibrantes e toque glamouroso."
+  },
+  {
+    "name": "The Boys",
+    "value": "the-boys",
+    "image": "theboys.png",
+    "hover": "Super-heróis realistas e violentos em ambiente urbano."
+  },
+  {
+    "name": "Pantera Negra",
+    "value": "pantera-negra",
+    "image": "panteranegra.png",
+    "hover": "Afrofuturismo com roupas tribais e tecnologia avançada."
+  },
+  {
+    "name": "Coringa",
+    "value": "coringa",
+    "image": "coringa.png",
+    "hover": "Visual sombrio, urbano e psicológico com maquiagem icônica."
+  }
+]

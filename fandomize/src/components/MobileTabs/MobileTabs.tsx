@@ -19,7 +19,6 @@ export default function MobileTabs({ tabs, activeTab, setActiveTab }: MobileTabs
     <div className="border-b border-white/30">
       <div className="flex justify-center">
         {tabs.map((tab, index) => {
-          // Define se o botão estará desabilitado com base na etapa:
           let disabled = false;
           if (index === 1 && !isStep1Complete) disabled = true;
           if (index === 2 && !isStep2Complete) disabled = true;

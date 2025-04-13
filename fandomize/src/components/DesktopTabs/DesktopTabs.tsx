@@ -7,10 +7,8 @@ interface DesktopTabsProps {
 }
 
 export default function DesktopTabs({ tabs, activeTab, setActiveTab }: DesktopTabsProps) {
-  // Consome o contexto para checar quais etapas estão concluídas
   const { uploadedImage, imageStyle, additionalDetails } = useTransform();
 
-  // Define as condições de conclusão:
   const isStep1Complete = Boolean(uploadedImage);
   const isStep2Complete = imageStyle.trim() !== "";
   const isStep3Complete = additionalDetails.trim() !== "";
@@ -19,6 +17,7 @@ export default function DesktopTabs({ tabs, activeTab, setActiveTab }: DesktopTa
     <div className="flex flex-col w-70 border-white/30 p-4 space-y-2">
       {tabs.map((tab, index) => {
         let disabled = false;
+        
         if (index === 1 && !isStep1Complete) disabled = true;
         if (index === 2 && !isStep2Complete) disabled = true;
 

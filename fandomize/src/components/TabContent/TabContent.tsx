@@ -40,12 +40,10 @@ export default function TabContent({ activeTab, setActiveTab }: TabContentProps)
 
   return (
     <div className="flex flex-col h-full justify-between space-y-4">
-      {/* Conteúdo rolável */}
       <div className="overflow-y-auto">
         {content}
       </div>
 
-      {/* Botões sempre ao final */}
       <div className="flex justify-between items-center">
         <button
           onClick={() => go(-1)}

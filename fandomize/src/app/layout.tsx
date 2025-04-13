@@ -29,11 +29,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
-      <body className={`${poppins.variable} ${inter.variable} antialiased`}>
-        <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#6C5CE7] to-[#00B894]">
+    <html lang="pt-BR" className="h-full">
+      <body className={`${poppins.variable} ${inter.variable} antialiased h-full`}>
+        <div className="h-screen flex flex-col bg-gradient-to-br from-[#6C5CE7] to-[#00B894] text-white">
           <Header />
-          <main className="flex flex-grow">{children}</main>
+          <main className="flex-1 overflow-auto md:overflow-hidden">
+            {children}
+          </main>
           <Footer />
         </div>
       </body>

@@ -6,9 +6,11 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
     "test": "jest --passWithNoTests",
-    "prepare": "cd .. && husky install fandomize/.husky"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "lint:strict": "next lint '*/**/*.{js,jsx,ts,tsx}'",
+    "prettier": "prettier --write */**/*.{js,jsx,json,ts,tsx,scss,css,md}"
   },
   "dependencies": {
     "next": "15.2.4",
@@ -35,11 +37,5 @@
     "tailwindcss": "^4",
     "ts-jest": "^29.3.1",
     "typescript": "^5"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "npm test -- --bail --findRelatedTests",
-      "git add"
-    ]
   }
 }

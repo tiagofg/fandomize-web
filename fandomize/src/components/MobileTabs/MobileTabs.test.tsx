@@ -108,15 +108,15 @@ describe('MobileTabs Component', () => {
     });
   });
 
-  // test('combina com o snapshot', () => {
-  //   // Para o snapshot, usa-se o contexto com valores vazios
-  //   (useTransform as jest.Mock).mockReturnValue({
-  //     uploadedImage: "",
-  //     imageStyle: "",
-  //     additionalDetails: "",
-  //   });
-  //   const setActiveTab = jest.fn();
-  //   const { asFragment } = render(<MobileTabs tabs={tabs} activeTab={0} setActiveTab={setActiveTab} />);
-  //   expect(asFragment()).toMatchSnapshot();
-  // });
+  test('combina com o snapshot', () => {
+    // Para o snapshot, usa-se o contexto com valores vazios
+    (useTransform as jest.Mock).mockReturnValue({
+      uploadedImage: "",
+      imageStyle: "",
+      additionalDetails: "",
+    });
+    const setActiveTab = jest.fn();
+    const { asFragment } = render(<MobileTabs tabs={tabs} activeTab={0} setActiveTab={setActiveTab} />);
+    expect(asFragment()).toMatchSnapshot();
+  });
 });

@@ -16,7 +16,7 @@
     "prompt": "Transform the uploaded image into a paper cut-out character, with layered paper look, soft shadows and a handmade feel."
   },
   {
-    "value": "boneco-de-cera",
-    "prompt": "Transform the uploaded image into the style of a wax statue, with realistic textures, polished skin and museum lighting."
+    "value": "hq-classica",
+    "prompt": "Transform the uploaded image into the style of classic comic books, with bold black outlines, halftone dots, and vibrant flat colors."
   }
 ]

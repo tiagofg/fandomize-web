@@ -1,9 +1,15 @@
 [
   {
-    "name": "Ghibli",
-    "value": "ghibli",
-    "image": "ghibli.png",
-    "hover": "Visual delicado e mágico, com cenários naturais pintados à mão."
+    "name": "Os Simpsons",
+    "value": "simpsons",
+    "image": "simpsons.png",
+    "hover": "Personagens amarelos com olhos esbugalhados e humor sarcástico."
+  },
+  {
+    "name": "Bob Esponja",
+    "value": "bob-esponja",
+    "image": "bobesponja.png",
+    "hover": "Visual submarino com traços caricatos e cores vibrantes."
   },
   {
     "name": "Pixar",
@@ -12,16 +18,16 @@
     "hover": "Estilo 3D vibrante com personagens expressivos e realistas."
   },
   {
-    "name": "Aranhaverso",
-    "value": "spider-verse",
-    "image": "spiderverse.png",
-    "hover": "Estilo de quadrinhos vibrante com texturas e efeitos visuais únicos."
+    "name": "Ghibli",
+    "value": "ghibli",
+    "image": "ghibli.png",
+    "hover": "Visual delicado e mágico, com cenários naturais pintados à mão."
   },
   {
-    "name": "Arcane",
-    "value": "arcane",
-    "image": "arcane.png",
-    "hover": "Arte pintada com sombras fortes e atmosfera sombria e épica."
+    "name": "Turma da Mônica",
+    "value": "turma-da-monica",
+    "image": "turmadamonica.png",
+    "hover": "Estilo infantil brasileiro com traços suaves e expressivos."
   },
   {
     "name": "Anime Shonen",
@@ -30,10 +36,16 @@
     "hover": "Traços marcantes, ação intensa e clima heróico."
   },
   {
-    "name": "Love, Death & Robots",
-    "value": "love-death-robots",
-    "image": "lovedeathrobots.png",
-    "hover": "Futurismo experimental e realismo estilizado."
+    "name": "Aranhaverso",
+    "value": "spider-verse",
+    "image": "spiderverse.png",
+    "hover": "Estilo de quadrinhos vibrante com texturas e efeitos visuais únicos."
+  },
+  {
+    "name": "South Park",
+    "value": "south-park",
+    "image": "southpark.png",
+    "hover": "Estilo recortado com olhos grandes e humor ácido."
   },
   {
     "name": "Rick e Morty",
@@ -46,17 +58,5 @@
     "value": "adventure-time",
     "image": "adventuretime.png",
     "hover": "Cores chapadas, formas simples e mundo surreal."
-  },
-  {
-    "name": "Coraline",
-    "value": "coraline",
-    "image": "coraline.png",
-    "hover": "Estilo sombrio em stop-motion com visual artesanal."
-  },
-  {
-    "name": "O Evangelho da Meia-Noite",
-    "value": "midnight-gospel",
-    "image": "midnightgospel.png",
-    "hover": "Estilo psicodélico com cores intensas e composições caóticas."
   }
 ]

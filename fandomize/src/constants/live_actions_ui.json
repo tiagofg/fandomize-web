@@ -1,5 +1,29 @@
 [
   {
+    "name": "Harry Potter",
+    "value": "harry-potter",
+    "image": "harrypotter.png",
+    "hover": "Magia britânica com capas, varinhas e castelos."
+  },
+  {
+    "name": "Stranger Things",
+    "value": "stranger-things",
+    "image": "strangerthings.png",
+    "hover": "Estilo anos 80 com tons sombrios e atmosfera sobrenatural."
+  },
+  {
+    "name": "Matrix",
+    "value": "matrix",
+    "image": "matrix.png",
+    "hover": "Estilo cyberpunk com roupas pretas e efeitos de código."
+  },
+  {
+    "name": "Coringa",
+    "value": "coringa",
+    "image": "coringa.png",
+    "hover": "Visual sombrio, urbano e psicológico com maquiagem icônica."
+  },
+  {
     "name": "O Senhor dos Anéis",
     "value": "senhor-dos-aneis",
     "image": "senhordosaneis.png",
@@ -10,12 +34,6 @@
     "value": "game-of-thrones",
     "image": "gameofthrones.png",
     "hover": "Drama medieval sombrio com castelos e batalhas intensas."
-  },
-  {
-    "name": "The Mandalorian",
-    "value": "the-mandalorian",
-    "image": "themandalorian.png",
-    "hover": "Ficção espacial com estilo western e visual futurista."
   },
   {
     "name": "Duna",
@@ -30,33 +48,15 @@
     "hover": "Ficção futurista distópica com luzes de néon e névoa."
   },
   {
-    "name": "O Grande Hotel Budapeste",
-    "value": "grand-budapest",
-    "image": "grandbudapest.png",
-    "hover": "Visual pastel, elegante e simétrico de Wes Anderson."
+    "name": "Piratas do Caribe",
+    "value": "piratas-do-caribe",
+    "image": "piratasdocaribe.png",
+    "hover": "Estilo pirata com roupas de época e navios em alto-mar."
   },
   {
     "name": "Barbie",
     "value": "barbie",
     "image": "barbie.png",
     "hover": "Estilo pop com cores vibrantes e toque glamouroso."
-  },
-  {
-    "name": "The Boys",
-    "value": "the-boys",
-    "image": "theboys.png",
-    "hover": "Super-heróis realistas e violentos em ambiente urbano."
-  },
-  {
-    "name": "Pantera Negra",
-    "value": "pantera-negra",
-    "image": "panteranegra.png",
-    "hover": "Afrofuturismo com roupas tribais e tecnologia avançada."
-  },
-  {
-    "name": "Coringa",
-    "value": "coringa",
-    "image": "coringa.png",
-    "hover": "Visual sombrio, urbano e psicológico com maquiagem icônica."
   }
 ]

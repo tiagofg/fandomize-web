@@ -24,9 +24,9 @@
     "hover": "Aparência artesanal com camadas de papel e sombra."
   },
   {
-    "name": "Boneco de Cera",
-    "value": "boneco-de-cera",
-    "image": "boneco_cera.png",
-    "hover": "Visual hiper-realista com aspecto levemente artificial."
+    "name": "HQ Clássica",
+    "value": "hq-classica",
+    "image": "hq_classica.png",
+    "hover": "Traços pretos marcantes, pontos de retícula e cores vibrantes."
   }
 ]

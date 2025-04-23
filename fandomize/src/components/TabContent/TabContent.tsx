@@ -1,6 +1,7 @@
 "use client";
 import { useTransform } from "@/contexts/TransformContext";
 import SelectImage from "../SelectImage/SelectImage";
+import StyleSelection from "../StyleSelection/StyleSelection";
 
 interface TabContentProps {
   activeTab: number;
@@ -16,12 +17,7 @@ export default function TabContent({ activeTab, setActiveTab }: TabContentProps)
       isComplete: Boolean(uploadedImage),
     },
     {
-      content: (
-        <>
-          <h2 className="text-2xl font-bold mb-4">Selecione o Estilo</h2>
-          {/* Componente de seleção de estilo */}
-        </>
-      ),
+      content: <StyleSelection />,
       isComplete: imageStyle.trim() !== "",
     },
     {

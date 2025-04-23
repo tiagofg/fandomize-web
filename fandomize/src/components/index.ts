@@ -5,3 +5,4 @@ export { default as MobileTabs } from "./MobileTabs/MobileTabs";
 export { default as DesktopTabs } from "./DesktopTabs/DesktopTabs";
 export { default as TabContent } from "./TabContent/TabContent";
 export { default as TransformSteps } from "./TransformSteps/TransformSteps";
+export { default as StyleSelection } from "./StyleSelection/StyleSelection";

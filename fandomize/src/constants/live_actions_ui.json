@@ -2,13 +2,13 @@
   {
     "name": "Harry Potter",
     "value": "harry-potter",
-    "image": "harrypotter.png",
+    "image": "harry-potter.png",
     "hover": "Magia britânica com capas, varinhas e castelos."
   },
   {
     "name": "Stranger Things",
     "value": "stranger-things",
-    "image": "strangerthings.png",
+    "image": "stranger-things.png",
     "hover": "Estilo anos 80 com tons sombrios e atmosfera sobrenatural."
   },
   {
@@ -20,19 +20,19 @@
   {
     "name": "Coringa",
     "value": "coringa",
-    "image": "coringa.png",
+    "image": "joker.png",
     "hover": "Visual sombrio, urbano e psicológico com maquiagem icônica."
   },
   {
     "name": "O Senhor dos Anéis",
     "value": "senhor-dos-aneis",
-    "image": "senhordosaneis.png",
+    "image": "senhor-dos-aneis.png",
     "hover": "Fantasia épica com florestas, montanhas e clima medieval."
   },
   {
     "name": "Game of Thrones",
     "value": "game-of-thrones",
-    "image": "gameofthrones.png",
+    "image": "game-of-thrones.png",
     "hover": "Drama medieval sombrio com castelos e batalhas intensas."
   },
   {
@@ -44,13 +44,13 @@
   {
     "name": "Blade Runner 2049",
     "value": "blade-runner-2049",
-    "image": "bladerunner2049.png",
+    "image": "blade-runner.png",
     "hover": "Ficção futurista distópica com luzes de néon e névoa."
   },
   {
     "name": "Piratas do Caribe",
     "value": "piratas-do-caribe",
-    "image": "piratasdocaribe.png",
+    "image": "piratas-do-caribe.png",
     "hover": "Estilo pirata com roupas de época e navios em alto-mar."
   },
   {

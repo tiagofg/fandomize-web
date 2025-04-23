@@ -1,23 +1,39 @@
+// __tests__/TabContent.test.tsx
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import TabContent from './TabContent';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
+
+import TabContent from '@/components/TabContent/TabContent';
 import { useTransform } from '@/contexts/TransformContext';
 
-// Mock do hook useTransform
+// Mocks
 jest.mock('@/contexts/TransformContext', () => ({
   useTransform: jest.fn(),
 }));
 
-// Mock de URL.createObjectURL / revokeObjectURL para SelectImage
-const MOCK_URL = 'blob://preview-url';
-beforeAll(() => {
-  global.URL.createObjectURL = jest.fn(() => MOCK_URL);
-  global.URL.revokeObjectURL = jest.fn();
+jest.mock('@/components/SelectImage/SelectImage', () => {
+  const MockSelectImage = () => (
+    <input data-testid="select-image" type="file" />
+  );
+
+  MockSelectImage.displayName = 'MockSelectImage';
+
+  return MockSelectImage;
+});
+
+jest.mock('@/components/StyleSelection/StyleSelection', () => {
+  const MockStyleSelection = () => (
+    <div data-testid="style-selection">StyleSelection</div>
+  );
+
+  MockStyleSelection.displayName = 'MockStyleSelection';
+  
+  return MockStyleSelection;
 });
 
 describe('TabContent Component', () => {
   const setActiveTab = jest.fn();
-  const defaultMocks = {
+  const defaultContext = {
     uploadedImage: null,
     imageStyle: '',
     additionalDetails: '',
@@ -25,42 +41,38 @@ describe('TabContent Component', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (useTransform as jest.Mock).mockReturnValue(defaultMocks);
+    (useTransform as jest.Mock).mockReturnValue(defaultContext);
   });
 
-  test('etapa 0: mostra SelectImage, botões desabilitados', () => {
-    const { container } = render(<TabContent activeTab={0} setActiveTab={setActiveTab} />);
+  it('Step 0: shows SelectImage and disables buttons', () => {
+    render(<TabContent activeTab={0} setActiveTab={setActiveTab} />);
 
-    // Conteúdo: SelectImage renderiza <input type="file">
-    const fileInput = container.querySelector('input[type="file"]');
-    expect(fileInput).toBeInTheDocument();
-
-    // Botões
-    const backBtn = screen.getByText('Voltar');
-    const contBtn = screen.getByText('Continuar');
+    expect(screen.getByTestId('select-image')).toBeInTheDocument();
+    const backBtn = screen.getByRole('button', { name: 'Voltar' });
+    const contBtn = screen.getByRole('button', { name: 'Continuar' });
     expect(backBtn).toBeDisabled();
     expect(contBtn).toBeDisabled();
   });
 
-  test('etapa 0 completa: Continue habilitado e avança', () => {
+  it('Step 0 complete: Continue enabled and advances to next tab', () => {
     (useTransform as jest.Mock).mockReturnValue({
-      ...defaultMocks,
-      uploadedImage: new File([''], 'a.png', { type: 'image/png' }),
+      ...defaultContext,
+      uploadedImage: new File([''], 'test.png', { type: 'image/png' }),
     });
     render(<TabContent activeTab={0} setActiveTab={setActiveTab} />);
 
-    const contBtn = screen.getByText('Continuar');
+    const contBtn = screen.getByRole('button', { name: 'Continuar' });
     expect(contBtn).toBeEnabled();
     fireEvent.click(contBtn);
     expect(setActiveTab).toHaveBeenCalledWith(1);
   });
 
-  test('etapa 1: mostra título, Continue desabilitado quando vazio', () => {
+  it('Step 1: shows StyleSelection and back enabled, continue disabled', () => {
     render(<TabContent activeTab={1} setActiveTab={setActiveTab} />);
-    expect(screen.getByText('Selecione o Estilo')).toBeInTheDocument();
 
-    const backBtn = screen.getByText('Voltar');
-    const contBtn = screen.getByText('Continuar');
+    expect(screen.getByTestId('style-selection')).toBeInTheDocument();
+    const backBtn = screen.getByRole('button', { name: 'Voltar' });
+    const contBtn = screen.getByRole('button', { name: 'Continuar' });
     expect(backBtn).toBeEnabled();
     expect(contBtn).toBeDisabled();
 
@@ -68,25 +80,25 @@ describe('TabContent Component', () => {
     expect(setActiveTab).toHaveBeenCalledWith(0);
   });
 
-  test('etapa 1 completa: Continue habilitado e avança', () => {
+  it('Step 1 complete: Continue enabled and advances', () => {
     (useTransform as jest.Mock).mockReturnValue({
-      ...defaultMocks,
-      imageStyle: 'foo',
+      ...defaultContext,
+      imageStyle: 'some-style',
     });
     render(<TabContent activeTab={1} setActiveTab={setActiveTab} />);
 
-    const contBtn = screen.getByText('Continuar');
+    const contBtn = screen.getByRole('button', { name: 'Continuar' });
     expect(contBtn).toBeEnabled();
     fireEvent.click(contBtn);
     expect(setActiveTab).toHaveBeenCalledWith(2);
   });
 
-  test('etapa 2: mostra título, botão Finalizar desabilitado quando vazio', () => {
+  it('Step 2: shows additional comments and buttons state', () => {
     render(<TabContent activeTab={2} setActiveTab={setActiveTab} />);
-    expect(screen.getByText('Comentários Adicionais')).toBeInTheDocument();
 
-    const backBtn = screen.getByText('Voltar');
-    const finishBtn = screen.getByText('Finalizar');
+    expect(screen.getByText('Comentários Adicionais')).toBeInTheDocument();
+    const backBtn = screen.getByRole('button', { name: 'Voltar' });
+    const finishBtn = screen.getByRole('button', { name: 'Finalizar' });
     expect(backBtn).toBeEnabled();
     expect(finishBtn).toBeDisabled();
 
@@ -94,18 +106,18 @@ describe('TabContent Component', () => {
     expect(setActiveTab).toHaveBeenCalledWith(1);
   });
 
-  test('etapa 2 completa: Finalizar habilitado e chama console.log', () => {
-    const spy = jest.spyOn(console, 'log').mockImplementation(() => {});
+  it('Step 2 complete: Finalizar enabled and logs completion', () => {
+    const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
     (useTransform as jest.Mock).mockReturnValue({
-      ...defaultMocks,
-      additionalDetails: 'bar',
+      ...defaultContext,
+      additionalDetails: 'some details',
     });
     render(<TabContent activeTab={2} setActiveTab={setActiveTab} />);
 
-    const finishBtn = screen.getByText('Finalizar');
+    const finishBtn = screen.getByRole('button', { name: 'Finalizar' });
     expect(finishBtn).toBeEnabled();
     fireEvent.click(finishBtn);
-    expect(spy).toHaveBeenCalledWith('Processo finalizado!');
-    spy.mockRestore();
+    expect(consoleSpy).toHaveBeenCalledWith('Processo finalizado!');
+    consoleSpy.mockRestore();
   });
 });

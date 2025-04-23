@@ -8,7 +8,7 @@
   {
     "name": "Bob Esponja",
     "value": "bob-esponja",
-    "image": "bobesponja.png",
+    "image": "bob-esponja.png",
     "hover": "Visual submarino com traços caricatos e cores vibrantes."
   },
   {
@@ -26,37 +26,37 @@
   {
     "name": "Turma da Mônica",
     "value": "turma-da-monica",
-    "image": "turmadamonica.png",
+    "image": "turma-da-monica.png",
     "hover": "Estilo infantil brasileiro com traços suaves e expressivos."
   },
   {
     "name": "Anime Shonen",
     "value": "anime-shonen",
-    "image": "animeshonen.png",
+    "image": "anime-shonen.png",
     "hover": "Traços marcantes, ação intensa e clima heróico."
   },
   {
     "name": "Aranhaverso",
     "value": "spider-verse",
-    "image": "spiderverse.png",
+    "image": "spider-verse.png",
     "hover": "Estilo de quadrinhos vibrante com texturas e efeitos visuais únicos."
   },
   {
     "name": "South Park",
     "value": "south-park",
-    "image": "southpark.png",
+    "image": "south-park.png",
     "hover": "Estilo recortado com olhos grandes e humor ácido."
   },
   {
     "name": "Rick e Morty",
     "value": "rick-and-morty",
-    "image": "rickandmorty.png",
+    "image": "rick-and-morty.png",
     "hover": "Humor ácido com ficção científica e estilo irreverente."
   },
   {
     "name": "Hora de Aventura",
     "value": "adventure-time",
-    "image": "adventuretime.png",
+    "image": "adventure-time.png",
     "hover": "Cores chapadas, formas simples e mundo surreal."
   }
 ]

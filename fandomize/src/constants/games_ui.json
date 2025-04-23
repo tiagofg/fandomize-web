@@ -14,19 +14,19 @@
   {
     "name": "God of War",
     "value": "god-of-war",
-    "image": "godofwar.png",
+    "image": "god-of-war.png",
     "hover": "Fantasia nórdica brutal com cenários épicos e mitologia."
   },
   {
     "name": "Zelda: Breath of the Wild",
     "value": "zelda-breath-of-the-wild",
-    "image": "zelda_botw.png",
+    "image": "zelda.png",
     "hover": "Visual cel-shading com natureza vasta e magia discreta."
   },
   {
     "name": "Red Dead Redemption",
     "value": "red-dead-redemption",
-    "image": "reddeadredemption.png",
+    "image": "red-dead-redemption.png",
     "hover": "Visual de velho oeste com cavalos, chapéus e clima épico."
   },
   {
@@ -38,7 +38,7 @@
   {
     "name": "Hollow Knight",
     "value": "hollow-knight",
-    "image": "hollowknight.png",
+    "image": "hollow-knight.png",
     "hover": "Metroidvania sombrio com silhuetas e atmosfera gótica."
   },
   {
@@ -50,13 +50,13 @@
   {
     "name": "Genshin Impact",
     "value": "genshin-impact",
-    "image": "genshinimpact.png",
+    "image": "genshin-impact.png",
     "hover": "Visual anime refinado com cenários naturais e fantasia leve."
   },
   {
     "name": "The Last of Us",
     "value": "the-last-of-us",
-    "image": "thelastofus.png",
+    "image": "the-last-of-us.png",
     "hover": "Visual pós-apocalíptico com paisagens urbanas destruídas e clima melancólico."
   }
 ]

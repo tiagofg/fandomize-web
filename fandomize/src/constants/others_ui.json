@@ -2,31 +2,31 @@
   {
     "name": "Personagem Lego",
     "value": "personagem-lego",
-    "image": "personagem_lego.png",
+    "image": "lego.png",
     "hover": "Corpo em blocos, cabeça cilíndrica e mãos em garras."
   },
   {
     "name": "Funko Pop",
     "value": "funko-pop",
-    "image": "funko_pop.png",
+    "image": "funko-pop.png",
     "hover": "Cabeça grande e olhos redondos em corpo pequeno e fofo."
   },
   {
     "name": "Pixel Art",
     "value": "pixel-art",
-    "image": "pixel_art.png",
+    "image": "pixel-art.png",
     "hover": "Visual em blocos pixelados, estilo retrô de videogame."
   },
   {
     "name": "Paper Cut",
     "value": "paper-cut",
-    "image": "paper_cut.png",
+    "image": "paper-cut.png",
     "hover": "Aparência artesanal com camadas de papel e sombra."
   },
   {
     "name": "HQ Clássica",
     "value": "hq-classica",
-    "image": "hq_classica.png",
+    "image": "comic-book.png",
     "hover": "Traços pretos marcantes, pontos de retícula e cores vibrantes."
   }
 ]

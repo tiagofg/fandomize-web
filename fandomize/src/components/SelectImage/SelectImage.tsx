@@ -40,7 +40,7 @@ export default function SelectImage() {
     setIsDragging(false);
 
     const file = e.dataTransfer.files?.[0];
-    
+
     setUploadedImage(file || null);
   };
 
@@ -48,7 +48,10 @@ export default function SelectImage() {
 
   return (
     <div className="w-full p-4 space-y-4">
-      <p className="text-xl font-semibold">
+      <h2 className="text-2xl font-bold text-white mb-4">
+        Selecione a Imagem
+      </h2>
+      <p className="text-sm text-gray-300 mb-6">
         Escolha uma imagem incrível que você queira transformar! Na próxima etapa, você poderá selecionar o estilo visual desejado. Para remover ou trocar a imagem, clique no X.
       </p>
 

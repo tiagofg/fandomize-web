@@ -8,6 +8,7 @@ const tabs = [
   "Selecione a Imagem",
   "Selecione o Estilo",
   "Comentários Adicionais",
+  "Revisar e Enviar",             
 ];
 
 export default function Transformar() {
@@ -15,7 +16,11 @@ export default function Transformar() {
 
   return (
     <TransformProvider>
-      <TransformSteps tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+      <TransformSteps
+        tabs={tabs}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
     </TransformProvider>
-  )
+  );
 }

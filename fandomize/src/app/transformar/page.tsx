@@ -5,10 +5,22 @@ import TransformProvider from "@/contexts/TransformContext";
 import { useState } from "react";
 
 const tabs = [
-  "Escolha a Foto",
-  "Escolha o Estilo",
-  "Detalhes Extras",
-  "Revisar e Enviar",             
+  {
+    desktop: "Escolha a Foto",
+    mobile: "Foto",
+  },
+  {
+    desktop: "Escolha o Estilo",
+    mobile: "Estilo",
+  },
+  {
+    desktop: "Detalhes Extras",
+    mobile: "Extras",
+  },
+  {
+    desktop: "Revisar e Enviar",
+    mobile: "Revisar",
+  },
 ];
 
 export default function Transformar() {

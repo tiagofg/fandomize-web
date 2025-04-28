@@ -1,7 +1,8 @@
 import { useTransform } from "@/contexts/TransformContext";
+import { Tab } from "../TransformSteps/TransformSteps";
 
 interface DesktopTabsProps {
-  tabs: string[];
+  tabs: Tab[];
   activeTab: number;
   setActiveTab: (index: number) => void;
 }
@@ -35,7 +36,7 @@ export default function DesktopTabs({ tabs, activeTab, setActiveTab }: DesktopTa
                   : "text-white hover:bg-white/10"
               }`}
           >
-            {index + 1}. {tab}{" "}
+            {index + 1}. {tab.desktop}{" "}
             {index === 0 && isStep1Complete && "✓"}
             {index === 1 && isStep2Complete && "✓"}
             {index === 2 && isStep3Complete && "✓"}

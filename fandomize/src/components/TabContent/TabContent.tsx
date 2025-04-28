@@ -7,20 +7,20 @@ import StyleSelection from "../StyleSelection/StyleSelection";
 import AdditionalInfo from "../AdditionalInfo/AdditionalInfo";
 import SummaryStep from "../SummaryStep/SummaryStep";
 import { editImageAction } from "@/actions/editImage";
-import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface TabContentProps {
   activeTab: number;
   setActiveTab: (index: number) => void;
+  setLoading: (loading: boolean) => void;
 }
 
 export default function TabContent({
   activeTab,
   setActiveTab,
+  setLoading,
 }: TabContentProps) {
   const { uploadedImage, imageStyle, additionalDetails } = useTransform();
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
   const router = useRouter();
 
@@ -32,14 +32,14 @@ export default function TabContent({
 
     setLoading(true);
     setError("");
-    
+
     try {
       const base64 = await editImageAction(
         uploadedImage,
         imageStyle,
         additionalDetails
       );
-      
+
       localStorage.setItem("editedImageBase64", base64);
 
       localStorage.removeItem("activeTab");
@@ -75,15 +75,6 @@ export default function TabContent({
 
   return (
     <div className="relative flex flex-col h-full justify-between space-y-4">
-      {loading && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-purple-700 bg-opacity-50 text-white p-4">
-          <Loader className="animate-spin" size={48} />
-          <p className="mt-4 text-center">
-            Aguenta aí! Estamos forjando sua obra‑prima (até 2 min). Nada de atualizar a página — a magia explode a qualquer instante!
-          </p>
-        </div>
-      )}
-
       <div className="overflow-y-auto flex-grow">
         {content}
       </div>
@@ -95,12 +86,11 @@ export default function TabContent({
       <div className="flex justify-between items-center">
         <button
           onClick={() => go(-1)}
-          disabled={activeTab === 0 || loading}
-          className={`py-2 px-4 rounded font-bold transition-colors cursor-pointer ${
-            activeTab === 0
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-white/20 hover:bg-white/30 text-white"
-          }`}
+          disabled={activeTab === 0}
+          className={`py-2 px-4 rounded font-bold transition-colors cursor-pointer ${activeTab === 0
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-white/20 hover:bg-white/30 text-white"
+            }`}
         >
           Voltar
         </button>
@@ -109,17 +99,14 @@ export default function TabContent({
           onClick={() =>
             activeTab < steps.length - 1 ? go(1) : handleSubmit()
           }
-          disabled={!isComplete || loading}
-          className={`py-2 px-6 rounded font-bold transition-colors cursor-pointer ${
-            !isComplete || loading
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-[#FDCB6E] hover:bg-yellow-400 text-[#6C5CE7]"
-          }`}
+          disabled={!isComplete}
+          className={`py-2 px-6 rounded font-bold transition-colors cursor-pointer ${!isComplete
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-[#FDCB6E] hover:bg-yellow-400 text-[#6C5CE7]"
+            }`}
         >
           {activeTab < steps.length - 1
             ? "Continuar"
-            : loading
-            ? "Enviando..."
             : "Enviar"}
         </button>
       </div>

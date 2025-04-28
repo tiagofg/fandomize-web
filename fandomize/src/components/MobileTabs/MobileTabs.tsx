@@ -1,7 +1,8 @@
 import { useTransform } from "@/contexts/TransformContext";
+import { Tab } from "../TransformSteps/TransformSteps";
 
 interface MobileTabsProps {
-  tabs: string[];
+  tabs: Tab[];
   activeTab: number;
   setActiveTab: (index: number) => void;
 }
@@ -35,7 +36,7 @@ export default function MobileTabs({ tabs, activeTab, setActiveTab }: MobileTabs
                   : "text-white"
               }`}
             >
-              {index + 1}. {tab}{" "}
+              {index + 1}. {tab.mobile}{" "}
               {index === 0 && isStep1Complete && "✓"}
               {index === 1 && isStep2Complete && "✓"}
               {index === 2 && isStep3Complete && "✓"}

@@ -21,7 +21,7 @@ export default function SummaryStep() {
   }, [uploadedImage]);
 
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col space-y-4 md:p-4 p-2">
       <h2 className="text-2xl font-bold text-white mb-4">
         Tudo pronto para o salto?
       </h2>

@@ -6,7 +6,7 @@ export default function AdditionalInfo() {
   const { additionalDetails, setAdditionalDetails } = useTransform();
 
   return (
-    <div className="flex flex-col space-y-2">
+    <div className="flex flex-col space-y-2 md:p-4 p-2">
       <h2 className="text-2xl font-bold text-white mb-4">
         Dê um boost nos detalhes
       </h2>

@@ -37,7 +37,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="w-full p-4 flex items-center justify-between bg-white/40 text-white shadow-lg">
+    <header className="w-full md:p-4 py-0 px-2 flex items-center justify-between bg-white/40 text-white shadow-lg">
       <div className="flex items-center gap-3">
         <Link href="/">
           <>

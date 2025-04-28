@@ -47,7 +47,7 @@ export default function SelectImage() {
   const handleRemoveImage = () => setUploadedImage(null);
 
   return (
-    <div className="w-full p-4 space-y-4">
+    <div className="w-full md:p-4 p-2 space-y-4">
       <h2 className="text-2xl font-bold text-white mb-4">
         Escolha sua foto lendária
       </h2>

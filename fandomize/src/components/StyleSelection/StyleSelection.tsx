@@ -11,7 +11,7 @@ export default function StyleSelection() {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="bg-opacity-90 backdrop-blur-md p-4 space-y-2">
+      <div className="bg-opacity-90 backdrop-blur-md md:p-4 p-2 space-y-2">
         <h2 className="text-2xl font-bold text-white">
           Para qual universo sua foto vai viajar?
         </h2>
@@ -28,7 +28,7 @@ export default function StyleSelection() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto space-y-6 p-4">
+      <div className="flex-1 overflow-y-auto space-y-6 md:p-4 p-2">
         <CategorySection
           title="Animações"
           items={animationsData}

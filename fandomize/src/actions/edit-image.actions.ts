@@ -5,6 +5,11 @@ export async function editImageAction(
   imageStyle: string,
   additionalDetails: string
 ): Promise<string | { error: string }> {
+  console.log("Iniciando edição de imagem...");
+  console.log("Arquivo recebido:", file);
+  console.log("Estilo da imagem:", imageStyle);
+  console.log("Detalhes adicionais:", additionalDetails);
+
   const serviceUrl = process.env.FANDOMIZE_SERVICE_URL;
 
   if (!serviceUrl) {

@@ -10,7 +10,7 @@ export default function StyleSelection() {
   const { imageStyle, styleDetails } = useTransform();
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full overflow-y-auto">
       <div className="bg-opacity-90 backdrop-blur-md md:p-4 p-2 space-y-2">
         <h2 className="text-2xl font-bold text-white">
           Para qual universo sua foto vai viajar?
@@ -20,15 +20,15 @@ export default function StyleSelection() {
         </p>
       </div>
 
-      <div className="sticky top-16 z-20 bg-gradient-to-r from-purple-800 via-purple-700 to-blue-600 bg-opacity-90 backdrop-blur-md p-4">
-        <div className="text-sm text-white">
+      <div className="sticky top-0 z-20 bg-gradient-to-r from-purple-800 via-purple-700 to-blue-600 bg-opacity-90 backdrop-blur-md p-4">
+        <div className="text-xs text-white">
           {imageStyle
             ? `Estilo escolhido: ${imageStyle} (${styleDetails})`
             : 'Nenhum estilo escolhido até o momento'}
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto space-y-6 md:p-4 p-2">
+      <div className="flex-1 space-y-6 md:p-4 p-2">
         <CategorySection
           title="Animações"
           items={animationsData}

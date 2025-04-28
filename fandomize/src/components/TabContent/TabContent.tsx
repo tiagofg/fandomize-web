@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTransform } from "@/contexts/TransformContext";
 import SelectImage from "../SelectImage/SelectImage";
 import StyleSelection from "../StyleSelection/StyleSelection";
 import AdditionalInfo from "../AdditionalInfo/AdditionalInfo";
 import SummaryStep from "../SummaryStep/SummaryStep";
-import { editImageAction } from "@/actions/editImage";
+import { editImageAction } from "@/actions/editImage.action";
 import { useRouter } from "next/navigation";
 
 interface TabContentProps {
@@ -21,46 +21,70 @@ export default function TabContent({
   setLoading,
 }: TabContentProps) {
   const { uploadedImage, imageStyle, additionalDetails } = useTransform();
-  const [error, setError] = useState<string>("");
+  const [errorMsg, setErrorMsg] = useState<string>(() => {
+    return typeof window !== "undefined"
+      ? localStorage.getItem("errorMsg") || ""
+      : "";
+  });
   const router = useRouter();
+
+  useEffect(() => {
+    if (!errorMsg) return;
+
+    const timer = setTimeout(() => {
+      localStorage.removeItem("errorMsg");
+      setErrorMsg("");
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [errorMsg]);
 
   const handleSubmit = async () => {
     if (!uploadedImage) {
-      setError("Selecione uma imagem antes de enviar.");
+      const msg = "Selecione uma imagem antes de enviar.";
+      setErrorMsg(msg);
       return;
     }
 
     setLoading(true);
-    setError("");
+    setErrorMsg("");
 
-    try {
-      const base64 = await editImageAction(
-        uploadedImage,
-        imageStyle,
-        additionalDetails
-      );
+    const result = await editImageAction(
+      uploadedImage,
+      imageStyle,
+      additionalDetails
+    );
 
-      localStorage.setItem("editedImageBase64", base64);
-
-      localStorage.removeItem("activeTab");
-      localStorage.removeItem("additionalDetails");
-      localStorage.removeItem("imageStyle");
-      localStorage.removeItem("styleDetails");
-      localStorage.removeItem("uploadedImageData");
-      localStorage.removeItem("uploadedImageName");
-      localStorage.removeItem("uploadedImageType");
-
-      router.push("/resultado");
-    } catch (err: unknown) {
-      console.error(err);
-
+    if (typeof result === "object" && "error" in result) {
       const policyMsg =
         "Opa! Parece que a sua solicitação violou alguma de nossas políticas de uso. " +
         "Tente ajustar a imagem ou os detalhes e envie novamente.";
 
-      setError(policyMsg);
+      const displayMsg = result.error.includes("security")
+        ? policyMsg
+        : "Ocorreu um erro inesperado. Tente novamente mais tarde.";
+
+      localStorage.setItem("errorMsg", displayMsg);
+
+      setErrorMsg(displayMsg);
       setLoading(false);
+      
+      return;
     }
+
+    const base64 = result as string;
+
+    localStorage.removeItem("activeTab");
+    localStorage.removeItem("additionalDetails");
+    localStorage.removeItem("imageStyle");
+    localStorage.removeItem("styleDetails");
+    localStorage.removeItem("uploadedImageData");
+    localStorage.removeItem("uploadedImageName");
+    localStorage.removeItem("uploadedImageType");
+
+    localStorage.setItem("editedImageBase64", base64);
+
+    router.push("/resultado");
   };
 
   const steps = [
@@ -75,22 +99,19 @@ export default function TabContent({
 
   return (
     <div className="relative flex flex-col h-full justify-between space-y-4">
-      <div className="overflow-y-auto flex-grow">
-        {content}
-      </div>
+      <div className="overflow-y-auto flex-grow">{content}</div>
 
-      {activeTab === steps.length - 1 && error && (
-        <p className="text-red-500">{error}</p>
-      )}
+      {activeTab === steps.length - 1 && errorMsg && <p className="text-red-500">{errorMsg}</p>}
 
       <div className="flex justify-between items-center">
         <button
           onClick={() => go(-1)}
           disabled={activeTab === 0}
-          className={`py-2 px-4 rounded font-bold transition-colors cursor-pointer ${activeTab === 0
-            ? "bg-gray-400 cursor-not-allowed"
-            : "bg-white/20 hover:bg-white/30 text-white"
-            }`}
+          className={`py-2 px-4 rounded font-bold transition-colors cursor-pointer ${
+            activeTab === 0
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-white/20 hover:bg-white/30 text-white"
+          }`}
         >
           Voltar
         </button>
@@ -100,14 +121,13 @@ export default function TabContent({
             activeTab < steps.length - 1 ? go(1) : handleSubmit()
           }
           disabled={!isComplete}
-          className={`py-2 px-6 rounded font-bold transition-colors cursor-pointer ${!isComplete
-            ? "bg-gray-400 cursor-not-allowed"
-            : "bg-[#FDCB6E] hover:bg-yellow-400 text-[#6C5CE7]"
-            }`}
+          className={`py-2 px-6 rounded font-bold transition-colors cursor-pointer ${
+            !isComplete
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-[#FDCB6E] hover:bg-yellow-400 text-[#6C5CE7]"
+          }`}
         >
-          {activeTab < steps.length - 1
-            ? "Continuar"
-            : "Enviar"}
+          {activeTab < steps.length - 1 ? "Continuar" : "Enviar"}
         </button>
       </div>
     </div>

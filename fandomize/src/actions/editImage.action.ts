@@ -4,7 +4,7 @@ export async function editImageAction(
   file: File,
   imageStyle: string,
   additionalDetails: string
-): Promise<string> {
+): Promise<string | { error: string }> {
   const serviceUrl = process.env.FANDOMIZE_SERVICE_URL;
 
   if (!serviceUrl) {
@@ -25,7 +25,9 @@ export async function editImageAction(
   if (!res.ok) {
     const text = await res.text();
 
-    throw new Error(`Erro ao editar imagem: ${res.status} – ${text}`);
+    console.error(`Erro ao editar imagem: ${res.status} – ${text}`);
+
+    return { error: "security" };
   }
 
   const { image: base64 } = await res.json();

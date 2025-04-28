@@ -36,15 +36,15 @@ export default function StyleSelection() {
         />
 
         <CategorySection
-          title="Filmes e séries"
-          items={liveActionsData}
-          path="/live-actions"
-        />
-
-        <CategorySection
           title="Jogos"
           items={gamesData}
           path="/games"
+        />
+
+        <CategorySection
+          title="Filmes e séries"
+          items={liveActionsData}
+          path="/live-actions"
         />
 
         <CategorySection

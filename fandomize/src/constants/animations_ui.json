@@ -6,12 +6,6 @@
     "hover": "Personagens amarelos com olhos esbugalhados e humor sarcástico."
   },
   {
-    "name": "Bob Esponja",
-    "value": "bob-esponja",
-    "image": "bob-esponja.png",
-    "hover": "Visual submarino com traços caricatos e cores vibrantes."
-  },
-  {
     "name": "Pixar",
     "value": "pixar",
     "image": "pixar.png",
@@ -37,7 +31,7 @@
   },
   {
     "name": "Aranhaverso",
-    "value": "spider-verse",
+    "value": "aranhaverso",
     "image": "spider-verse.png",
     "hover": "Estilo de quadrinhos vibrante com texturas e efeitos visuais únicos."
   },
@@ -55,8 +49,14 @@
   },
   {
     "name": "Hora de Aventura",
-    "value": "adventure-time",
+    "value": "hora-de-aventura",
     "image": "adventure-time.png",
     "hover": "Cores chapadas, formas simples e mundo surreal."
+  },
+  {
+    "name": "Phineas e Ferb",
+    "value": "phineas-e-ferb",
+    "image": "phineas-e-ferb.png",
+    "hover": "Estilo animado com formas geométricas, aventuras inventivas e humor leve."
   }
 ]

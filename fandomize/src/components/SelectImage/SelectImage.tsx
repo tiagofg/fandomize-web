@@ -49,10 +49,10 @@ export default function SelectImage() {
   return (
     <div className="w-full p-4 space-y-4">
       <h2 className="text-2xl font-bold text-white mb-4">
-        Selecione a Imagem
+        Escolha sua foto lendária
       </h2>
       <p className="text-sm text-gray-300 mb-6">
-        Escolha uma imagem incrível que você queira transformar! Na próxima etapa, você poderá selecionar o estilo visual desejado. Para remover ou trocar a imagem, clique no X.
+        Selecione ou arraste aquela imagem incrível que você quer ver ganhar uma nova realidade. Na próxima etapa você decide o estilo — prepare‑se!
       </p>
 
       {!preview ? (
@@ -65,7 +65,7 @@ export default function SelectImage() {
             text-gray-700 hover:bg-gray-50`}
         >
           <span className="text-lg text-center">
-            Clique ou arraste uma imagem para começar a transformação!
+            Clique ou arraste aqui para iniciar a metamorfose!
           </span>
           <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
         </label>

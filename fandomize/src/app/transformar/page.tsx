@@ -5,9 +5,9 @@ import TransformProvider from "@/contexts/TransformContext";
 import { useState } from "react";
 
 const tabs = [
-  "Selecione a Imagem",
-  "Selecione o Estilo",
-  "Comentários Adicionais",
+  "Escolha a Foto",
+  "Escolha o Estilo",
+  "Detalhes Extras",
   "Revisar e Enviar",             
 ];
 

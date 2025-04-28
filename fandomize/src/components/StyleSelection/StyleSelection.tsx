@@ -13,18 +13,18 @@ export default function StyleSelection() {
     <div className="flex flex-col h-full">
       <div className="bg-opacity-90 backdrop-blur-md p-4 space-y-2">
         <h2 className="text-2xl font-bold text-white">
-          Escolha o universo para o qual deseja transportar sua foto
+          Para qual universo sua foto vai viajar?
         </h2>
         <p className="text-sm text-gray-300">
-          Aqui você seleciona o estilo visual entre animações, filmes e séries, jogos ou outros. Clique em um card para ver o nome e a descrição.
+          Navegue pelos cards e encontre o estilo que faz seu coração bater mais forte. Toque para ver detalhes e mergulhar de cabeça!
         </p>
       </div>
 
       <div className="sticky top-16 z-20 bg-gradient-to-r from-purple-800 via-purple-700 to-blue-600 bg-opacity-90 backdrop-blur-md p-4">
         <div className="text-sm text-white">
           {imageStyle
-            ? `Estilo selecionado: ${imageStyle} (${styleDetails})`
-            : 'Nenhum estilo selecionado até o momento'}
+            ? `Estilo escolhido: ${imageStyle} (${styleDetails})`
+            : 'Nenhum estilo escolhido até o momento'}
         </div>
       </div>
 

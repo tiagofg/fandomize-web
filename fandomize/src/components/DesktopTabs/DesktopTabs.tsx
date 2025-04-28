@@ -20,6 +20,7 @@ export default function DesktopTabs({ tabs, activeTab, setActiveTab }: DesktopTa
         
         if (index === 1 && !isStep1Complete) disabled = true;
         if (index === 2 && !isStep2Complete) disabled = true;
+        if (index === 3 && !isStep3Complete) disabled = true;
 
         return (
           <button

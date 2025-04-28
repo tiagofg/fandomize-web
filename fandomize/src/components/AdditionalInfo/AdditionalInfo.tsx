@@ -8,10 +8,10 @@ export default function AdditionalInfo() {
   return (
     <div className="flex flex-col space-y-2">
       <h2 className="text-2xl font-bold text-white mb-4">
-        Informações Adicionais
+        Dê um boost nos detalhes
       </h2>
       <p className="text-sm text-gray-300 mb-6">
-        Descreva o fundo, roupas ou qualquer outro detalhe que deseja incluir na imagem transformada.
+        Conte como quer o cenário, as roupas ou qualquer detalhe épico que não pode faltar!
       </p>
       <textarea
         value={additionalDetails}

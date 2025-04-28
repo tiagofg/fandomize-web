@@ -1,10 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { useTransform } from "@/contexts/TransformContext";
 import SelectImage from "../SelectImage/SelectImage";
 import StyleSelection from "../StyleSelection/StyleSelection";
 import AdditionalInfo from "../AdditionalInfo/AdditionalInfo";
 import SummaryStep from "../SummaryStep/SummaryStep";
+import { editImageAction } from "@/actions/editImage";
+import { Loader } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface TabContentProps {
   activeTab: number;
@@ -16,47 +20,82 @@ export default function TabContent({
   setActiveTab,
 }: TabContentProps) {
   const { uploadedImage, imageStyle, additionalDetails } = useTransform();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string>("");
+  const router = useRouter();
 
-  // quando chegar no Resumo, dispara aqui
-  const handleSubmit = () => {
-    // TODO: implementar sua chamada de API
-    console.log("Enviando transformação com:", {
-      uploadedImage,
-      imageStyle,
-      additionalDetails,
-    });
+  const handleSubmit = async () => {
+    if (!uploadedImage) {
+      setError("Selecione uma imagem antes de enviar.");
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+    
+    try {
+      const base64 = await editImageAction(
+        uploadedImage,
+        imageStyle,
+        additionalDetails
+      );
+      
+      localStorage.setItem("editedImageBase64", base64);
+
+      localStorage.removeItem("activeTab");
+      localStorage.removeItem("additionalDetails");
+      localStorage.removeItem("imageStyle");
+      localStorage.removeItem("styleDetails");
+      localStorage.removeItem("uploadedImageData");
+      localStorage.removeItem("uploadedImageName");
+      localStorage.removeItem("uploadedImageType");
+
+      router.push("/resultado");
+    } catch (err: unknown) {
+      console.error(err);
+
+      const policyMsg =
+        "Opa! Parece que a sua solicitação violou alguma de nossas políticas de uso. " +
+        "Tente ajustar a imagem ou os detalhes e envie novamente.";
+
+      setError(policyMsg);
+      setLoading(false);
+    }
   };
 
   const steps = [
-    {
-      content: <SelectImage />,
-      isComplete: Boolean(uploadedImage),
-    },
-    {
-      content: <StyleSelection />,
-      isComplete: imageStyle.trim() !== "",
-    },
-    {
-      content: <AdditionalInfo />,
-      isComplete: additionalDetails.trim() !== "",
-    },
-    {
-      content: <SummaryStep />,
-      isComplete: true,  // sempre permite enviar
-    },
+    { content: <SelectImage />, isComplete: Boolean(uploadedImage) },
+    { content: <StyleSelection />, isComplete: imageStyle.trim() !== "" },
+    { content: <AdditionalInfo />, isComplete: additionalDetails.trim() !== "" },
+    { content: <SummaryStep />, isComplete: true },
   ];
 
   const { content, isComplete } = steps[activeTab];
   const go = (delta: number) => setActiveTab(activeTab + delta);
 
   return (
-    <div className="flex flex-col h-full justify-between space-y-4">
-      <div className="overflow-y-auto">{content}</div>
+    <div className="relative flex flex-col h-full justify-between space-y-4">
+      {loading && (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-purple-700 bg-opacity-50 text-white p-4">
+          <Loader className="animate-spin" size={48} />
+          <p className="mt-4 text-center">
+            Aguenta aí! Estamos forjando sua obra‑prima (até 2 min). Nada de atualizar a página — a magia explode a qualquer instante!
+          </p>
+        </div>
+      )}
+
+      <div className="overflow-y-auto flex-grow">
+        {content}
+      </div>
+
+      {activeTab === steps.length - 1 && error && (
+        <p className="text-red-500">{error}</p>
+      )}
 
       <div className="flex justify-between items-center">
         <button
           onClick={() => go(-1)}
-          disabled={activeTab === 0}
+          disabled={activeTab === 0 || loading}
           className={`py-2 px-4 rounded font-bold transition-colors cursor-pointer ${
             activeTab === 0
               ? "bg-gray-400 cursor-not-allowed"
@@ -70,14 +109,18 @@ export default function TabContent({
           onClick={() =>
             activeTab < steps.length - 1 ? go(1) : handleSubmit()
           }
-          disabled={!isComplete}
+          disabled={!isComplete || loading}
           className={`py-2 px-6 rounded font-bold transition-colors cursor-pointer ${
-            !isComplete
+            !isComplete || loading
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-[#FDCB6E] hover:bg-yellow-400 text-[#6C5CE7]"
           }`}
         >
-          {activeTab < steps.length - 1 ? "Continuar" : "Enviar"}
+          {activeTab < steps.length - 1
+            ? "Continuar"
+            : loading
+            ? "Enviando..."
+            : "Enviar"}
         </button>
       </div>
     </div>

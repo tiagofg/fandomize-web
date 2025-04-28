@@ -16,21 +16,21 @@ export default function SummaryStep() {
     const url = URL.createObjectURL(uploadedImage);
 
     setPreviewSrc(url);
-    
+
     return () => URL.revokeObjectURL(url);
   }, [uploadedImage]);
 
   return (
     <div className="flex flex-col space-y-4">
       <h2 className="text-2xl font-bold text-white mb-4">
-        Revisão
+        Tudo pronto para o salto?
       </h2>
       <p className="text-sm text-gray-300 mb-6">
-        Confira suas escolhas abaixo. Essas informações serão enviadas para gerar a imagem transformada conforme solicitado.
+        Confira se está tudo do jeitinho que você quer. Assim que enviar, nós cuidamos da mágica!
       </p>
 
       <div>
-        <h3 className="text-lg font-semibold text-white">Imagem selecionada:</h3>
+        <h3 className="text-lg font-semibold text-white">Imagem escolhida</h3>
         {previewSrc ? (
           <Image
             src={previewSrc}
@@ -46,14 +46,14 @@ export default function SummaryStep() {
       </div>
 
       <div>
-        <h3 className="text-lg font-semibold text-white">Estilo:</h3>
+        <h3 className="text-lg font-semibold text-white">Estilo</h3>
         <p className="text-gray-200 mt-1">
           {`${imageStyle} (${styleDetails})` || 'Não selecionado'}
         </p>
       </div>
 
       <div>
-        <h3 className="text-lg font-semibold text-white">Detalhes adicionais:</h3>
+        <h3 className="text-lg font-semibold text-white">Detalhes extras</h3>
         <p className="text-gray-200 mt-1">
           {additionalDetails || 'Nenhum detalhe adicional'}
         </p>

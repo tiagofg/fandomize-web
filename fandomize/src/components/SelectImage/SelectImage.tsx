@@ -31,7 +31,7 @@ export default function SelectImage() {
     if (file.size > FOUR_MB) {
       setIsCompressing(true);
       try {
-        const compressed = await compressImageFile(file, 4);
+        const compressed = await compressImageFile(file, { maxSizeMB: 4 });
         setUploadedImage(compressed);
       } catch (err) {
         console.error("Falha ao comprimir, usando original:", err);

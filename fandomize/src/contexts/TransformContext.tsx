@@ -34,13 +34,16 @@ export default function TransformProvider({ children }: TransformProviderProps) 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const storedStyle = localStorage.getItem("imageStyle");
-    const storedDetails = localStorage.getItem("additionalDetails");
-    const storedStyleDetails = localStorage.getItem("styleDetails");
+    const mappings = [
+      ["imageStyle", setImageStyle],
+      ["additionalDetails", setAdditionalDetails],
+      ["styleDetails", setStyleDetails],
+    ] as const;
 
-    if (storedStyle) setImageStyle(storedStyle);
-    if (storedDetails) setAdditionalDetails(storedDetails);
-    if (storedStyleDetails) setStyleDetails(storedStyleDetails);
+    mappings.forEach(([key, setter]) => {
+      const value = localStorage.getItem(key);
+      if (value) setter(value);
+    });
 
     const dataUrl = localStorage.getItem("uploadedImageData");
     const name = localStorage.getItem("uploadedImageName");
@@ -48,34 +51,31 @@ export default function TransformProvider({ children }: TransformProviderProps) 
 
     if (dataUrl && name) {
       fetch(dataUrl)
-        .then(res => res.blob())
-        .then(blob => {
-          const file = new File([blob], name, { type });
-          setUploadedImageState(file);
-        })
+        .then((res) => res.blob())
+        .then((blob) => new File([blob], name, { type }))
+        .then(setUploadedImageState)
         .catch(() => {
-          localStorage.removeItem("uploadedImageData");
-          localStorage.removeItem("uploadedImageName");
-          localStorage.removeItem("uploadedImageType");
+          [
+            "uploadedImageData",
+            "uploadedImageName",
+            "uploadedImageType",
+          ].forEach((k) => localStorage.removeItem(k));
         });
     }
   }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-
     localStorage.setItem("imageStyle", imageStyle);
   }, [imageStyle]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-
     localStorage.setItem("additionalDetails", additionalDetails);
   }, [additionalDetails]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-
     localStorage.setItem("styleDetails", styleDetails);
   }, [styleDetails]);
 
@@ -83,22 +83,25 @@ export default function TransformProvider({ children }: TransformProviderProps) 
     if (typeof window === "undefined") return;
 
     if (!uploadedImage) {
-      localStorage.removeItem("uploadedImageData");
-      localStorage.removeItem("uploadedImageName");
-      localStorage.removeItem("uploadedImageType");
+      [
+        "uploadedImageData",
+        "uploadedImageName",
+        "uploadedImageType",
+      ].forEach((k) => localStorage.removeItem(k));
       return;
     }
 
     const reader = new FileReader();
-
-    reader.onload = () => {
-      const result = reader.result as string;
-
-      localStorage.setItem("uploadedImageData", result);
-      localStorage.setItem("uploadedImageName", uploadedImage.name);
-      localStorage.setItem("uploadedImageType", uploadedImage.type);
+    reader.onloadend = () => {
+      const base64 = reader.result as string;
+      try {
+        localStorage.setItem("uploadedImageData", base64);
+        localStorage.setItem("uploadedImageName", uploadedImage.name);
+        localStorage.setItem("uploadedImageType", uploadedImage.type);
+      } catch (error) {
+        console.error("Erro ao gravar imagem no localStorage:", error);
+      }
     };
-
     reader.readAsDataURL(uploadedImage);
   }, [uploadedImage]);
 
@@ -126,10 +129,10 @@ export default function TransformProvider({ children }: TransformProviderProps) 
 
 export function useTransform() {
   const context = useContext(TransformContext);
-  
   if (context === undefined) {
-    throw new Error("useTransform must be used within a TransformProvider");
+    throw new Error(
+      "useTransform must be used within a TransformProvider"
+    );
   }
-
   return context;
 }

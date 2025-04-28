@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header/Header";
-import Footer from "@/components/Footer/Footer";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -36,7 +35,6 @@ export default function RootLayout({
           <main className="flex-1 overflow-auto md:overflow-hidden">
             {children}
           </main>
-          <Footer />
         </div>
       </body>
     </html>

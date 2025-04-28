@@ -6,7 +6,7 @@ import SelectImage from "../SelectImage/SelectImage";
 import StyleSelection from "../StyleSelection/StyleSelection";
 import AdditionalInfo from "../AdditionalInfo/AdditionalInfo";
 import SummaryStep from "../SummaryStep/SummaryStep";
-import { editImageAction } from "@/actions/editImage.action";
+import { editImageAction } from "@/actions/edit-image.actions";
 import { useRouter } from "next/navigation";
 
 interface TabContentProps {
@@ -68,7 +68,7 @@ export default function TabContent({
 
       setErrorMsg(displayMsg);
       setLoading(false);
-      
+
       return;
     }
 

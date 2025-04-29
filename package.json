@@ -17,7 +17,7 @@
     "*.{js,jsx,ts,tsx,!(*node_modules|*.next|dist)/**}": [
       "eslint --fix",
       "prettier --write",
-      "jest --findRelatedTests --bail --passWithNoTests"
+      "jest --bail --passWithNoTests"
     ],
     "*.{json,md,css,scss,!(*node_modules|*.next|dist)/**}": "prettier --write"
   }

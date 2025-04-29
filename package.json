@@ -1,0 +1,23 @@
+{
+  "name": "fandomize-monorepo",
+  "private": true,
+  "workspaces": [
+    "fandomize"
+  ],
+  "scripts": {
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "eslint": "^9.25.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.1",
+    "prettier": "^3.5.3"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,!(*node_modules|*.next|dist)/**}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css,scss,!(*node_modules|*.next|dist)/**}": "prettier --write"
+  }
+}

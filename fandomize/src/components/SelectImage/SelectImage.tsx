@@ -8,7 +8,8 @@ export default function SelectImage() {
   const { uploadedImage, setUploadedImage } = useTransform();
   const [preview, setPreview] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [isCompressing, setIsCompressing] = useState(false); // novo estado
+  const [isCompressing, setIsCompressing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!uploadedImage) {
@@ -22,9 +23,24 @@ export default function SelectImage() {
     return () => URL.revokeObjectURL(objectUrl);
   }, [uploadedImage]);
 
+  const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+
+  const validateFile = (file: File) => {
+    if (!allowedTypes.includes(file.type)) {
+      setError("Somente arquivos JPEG, PNG ou WebP são permitidos.");
+      return false;
+    }
+
+    setError(null);
+    
+    return true;
+  };
+
   async function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
+
     if (!file) return;
+    if (!validateFile(file)) return;
 
     const FOUR_MB = 4 * 1024 * 1024;
 
@@ -59,11 +75,16 @@ export default function SelectImage() {
     setIsDragging(false);
 
     const file = e.dataTransfer.files?.[0];
+    if (!file) return;
+    if (!validateFile(file)) return;
 
-    setUploadedImage(file || null);
+    setUploadedImage(file);
   };
 
-  const handleRemoveImage = () => setUploadedImage(null);
+  const handleRemoveImage = () => {
+    setUploadedImage(null);
+    setError(null);
+  };
 
   return (
     <div className="w-full md:p-4 p-2 space-y-4">
@@ -74,6 +95,10 @@ export default function SelectImage() {
         Selecione ou arraste aquela imagem incrível que você quer ver ganhar uma
         nova realidade. Na próxima etapa você decide o estilo — prepare-se!
       </p>
+
+      {error && (
+        <p className="text-sm text-red-500 mb-4">{error}</p>
+      )}
 
       {!preview ? (
         <label
@@ -102,7 +127,7 @@ export default function SelectImage() {
               </span>
               <input
                 type="file"
-                accept="image/*"
+                accept="image/jpeg,image/png,image/webp"
                 onChange={handleImageChange}
                 className="hidden"
                 disabled={isCompressing}

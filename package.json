@@ -5,7 +5,7 @@
     "fandomize"
   ],
   "scripts": {
-    "prepare": "husky"
+    "prepare": "husky ||| true"
   },
   "devDependencies": {
     "eslint": "^9.25.1",

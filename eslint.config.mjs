@@ -12,11 +12,39 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
-    files: ["jest.setup.js"],
+    // Configuração para ordenar imports
+    plugins: ["import"],
     rules: {
-      "@typescript-eslint/no-require-imports": "off"
-    }
-  }
+      // -- Import order --
+      "import/order": [
+        "error",
+        {
+          groups: [
+            "builtin",            // node core modules
+            "external",           // dependencies in node_modules
+            "internal",           // paths aliasados do seu projeto
+            ["parent", "sibling", "index"], // imports relativos
+          ],
+          "newlines-between": "always",
+          alphabetize: { order: "asc", caseInsensitive: true },
+        },
+      ],
+
+      // -- Sort members dentro do mesmo import --
+      "sort-imports": [
+        "error",
+        {
+          ignoreCase: false,
+          ignoreDeclarationSort: true,
+          memberSyntaxSortOrder: ["none", "all", "multiple", "single"],
+        },
+      ],
+
+      // Sua configuração existente para jest.setup.js
+      "@typescript-eslint/no-require-imports": "off",
+    },
+    files: ["jest.setup.js"],
+  },
 ];
 
 export default eslintConfig;

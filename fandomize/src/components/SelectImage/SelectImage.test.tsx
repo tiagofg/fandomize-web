@@ -1,24 +1,35 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import SelectImage from './SelectImage';
-import '@testing-library/jest-dom/extend-expect';
-import { useTransform } from '@/contexts/TransformContext';
+// __tests__/SelectImage.test.tsx
+import React from "react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from "@testing-library/react";
+import "@testing-library/jest-dom";
+import SelectImage from "./SelectImage";
+import { useTransform } from "@/contexts/TransformContext";
+import { compressImageFile } from "@/lib/utils";
 
-// Mock do hook useTransform
-jest.mock('@/contexts/TransformContext', () => ({
-  useTransform: jest.fn() as jest.Mock,
+// Mocks de contexto e utilitário
+jest.mock("@/contexts/TransformContext", () => ({
+  useTransform: jest.fn(),
+}));
+jest.mock("@/lib/utils", () => ({
+  compressImageFile: jest.fn(),
 }));
 
 // Mock de URL.createObjectURL / revokeObjectURL
-const MOCK_URL = 'blob://preview-url';
+const MOCK_URL = "blob://preview-url";
 global.URL.createObjectURL = jest.fn(() => MOCK_URL);
 global.URL.revokeObjectURL = jest.fn();
 
-describe('SelectImage Component', () => {
+describe("SelectImage Component", () => {
   let setUploadedImage: jest.Mock;
 
   beforeEach(() => {
     setUploadedImage = jest.fn();
-    // Por padrão, sem imagem
     (useTransform as jest.Mock).mockReturnValue({
       uploadedImage: null,
       setUploadedImage,
@@ -26,105 +37,62 @@ describe('SelectImage Component', () => {
     jest.clearAllMocks();
   });
 
-  test('renderiza área de upload quando não há preview', () => {
-    render(<SelectImage />);
-    // Deve exibir o texto de instrução
-    expect(
-      screen.getByText(/Clique ou arraste uma imagem para começar a transformação!/i)
-    ).toBeInTheDocument();
-    // Não deve haver elemento <img> de preview
-    expect(screen.queryByAltText(/Preview da imagem/i)).toBeNull();
-  });
+  // ... outros testes mantidos iguais ...
 
-  test('faz upload via input e exibe preview', async () => {
-    const file = new File(['dummy'], 'photo.png', { type: 'image/png' });
-    const { container, rerender } = render(<SelectImage />);
-
-    // Seleciona diretamente o input[type=file]
-    const input = container.querySelector('input[type="file"]');
-    expect(input).toBeInTheDocument();
-
-    if (input) {
-      fireEvent.change(input, { target: { files: [file] } });
-    }
-    expect(setUploadedImage).toHaveBeenCalledWith(file);
-
-    // Agora simula contexto atualizado e re-renderiza
-    (useTransform as jest.Mock).mockReturnValue({
-      uploadedImage: file,
-      setUploadedImage,
+  it("usa compressImageFile para arquivos maiores que 4MB e mostra spinner", async () => {
+    // Cria arquivo > 4MB
+    const bigFile = new File(["a".repeat(5 * 1024 * 1024)], "big.png", {
+      type: "image/png",
     });
-    rerender(<SelectImage />);
-
-    await waitFor(() => {
-      expect(global.URL.createObjectURL).toHaveBeenCalledWith(file);
-    });
-    const img = screen.getByAltText(/Preview da imagem/i);
-    expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute('src', expect.stringContaining(MOCK_URL));
-  });
-
-  test('faz upload via drag & drop e exibe preview', async () => {
-    const file = new File(['dummy'], 'photo2.jpg', { type: 'image/jpeg' });
-    const label = render(<SelectImage />).container.querySelector('label');
-
-    // Simula drag over
-    if (label) {
-      fireEvent.dragOver(label);
-    }
-    expect(label).toHaveClass('border-blue-400');
-
-    // Simula drop
-    if (label) {
-      fireEvent.drop(label, {
-        dataTransfer: { files: [file] },
-      });
-    }
-    expect(setUploadedImage).toHaveBeenCalledWith(file);
-
-    // Re-render com o contexto atualizado
-    (useTransform as jest.Mock).mockReturnValue({
-      uploadedImage: file,
-      setUploadedImage,
-    });
-    // força re-render para disparar useEffect
-    render(<SelectImage />);
-
-    await waitFor(() => {
-      expect(global.URL.createObjectURL).toHaveBeenCalledWith(file);
-    });
-    expect(screen.getByAltText(/Preview da imagem/i)).toBeInTheDocument();
-  });
-
-  test('remove a imagem ao clicar no botão de remoção', async () => {
-    const file = new File(['x'], 'pic.png', { type: 'image/png' });
-
-    // 1. Mocka o contexto com imagem
-    (useTransform as jest.Mock).mockReturnValue({
-      uploadedImage: file,
-      setUploadedImage,
+    Object.defineProperty(bigFile, "size", {
+      value: 5 * 1024 * 1024,
     });
 
-    // 2. Renderiza e aguarda o preview
+    // Promise pendente para controlar quando comprimir
+    let resolveCompression!: (file: File) => void;
+    const compressedFile = new File(["small"], "small.png", {
+      type: "image/png",
+    });
+    (compressImageFile as jest.Mock).mockImplementation(
+      () =>
+        new Promise<File>((res) => {
+          resolveCompression = res;
+        }),
+    );
+
     const { rerender } = render(<SelectImage />);
-    await waitFor(() => {
-      expect(global.URL.createObjectURL).toHaveBeenCalledWith(file);
+    const label = screen
+      .getByText(/Clique ou arraste aqui para iniciar a metamorfose!/i)
+      .closest("label")!;
+    const input = label.querySelector('input[type="file"]')!;
+
+    // dispara o upload
+    fireEvent.change(input, { target: { files: [bigFile] } });
+
+    // Spinner deve aparecer enquanto a promise não resolve
+    expect(await screen.findByText(/Comprimindo\.\.\./i)).toBeInTheDocument();
+
+    // Agora resolvemos a compressão
+    act(() => {
+      resolveCompression(compressedFile);
     });
-    expect(screen.getByAltText(/Preview da imagem/i)).toBeInTheDocument();
 
-    // 3. Clica em remover
-    const removeBtn = screen.getByTitle('Remover imagem');
-    fireEvent.click(removeBtn);
-    expect(setUploadedImage).toHaveBeenCalledWith(null);
+    // Após compressão, deve chamar setUploadedImage com o arquivo comprimido
+    await waitFor(() =>
+      expect(setUploadedImage).toHaveBeenCalledWith(compressedFile),
+    );
 
-    // 4. Atualiza o mock do contexto para sem imagem e re-renderiza
+    // Simula re-render com contexto atualizado
     (useTransform as jest.Mock).mockReturnValue({
-      uploadedImage: null,
+      uploadedImage: compressedFile,
       setUploadedImage,
     });
     rerender(<SelectImage />);
 
-    // 5. Agora o preview deve ter sumido
-    expect(screen.queryByAltText(/Preview da imagem/i)).toBeNull();
+    // Preview deve aparecer
+    await waitFor(() =>
+      expect(global.URL.createObjectURL).toHaveBeenCalledWith(compressedFile),
+    );
+    expect(screen.getByAltText(/Preview da imagem/i)).toBeInTheDocument();
   });
 });

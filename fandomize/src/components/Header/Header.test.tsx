@@ -1,109 +1,103 @@
-import { render, screen, fireEvent, within } from '@testing-library/react';
-import Header from './Header';
-import '@testing-library/jest-dom/extend-expect';
+/**
+ * @jest-environment jsdom
+ */
+import React from "react";
+import { render, screen, fireEvent, within } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import Header from "./Header";
 
-describe('Header Component', () => {
-  test('renderiza o header com a estrutura correta', () => {
+describe("Header Component", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("renderiza o header com a estrutura correta", () => {
     render(<Header />);
-    
-    // Verifica se o elemento header está presente na página
-    const headerElement = document.querySelector('header');
-    expect(headerElement).toBeInTheDocument();
 
-    // Verifica se existem duas imagens com o alt "Logo Fandomize"
-    const imageElements = screen.getAllByAltText('Logo Fandomize');
-    expect(imageElements.length).toBe(2);
+    // Header (role banner)
+    const header = screen.getByRole("banner");
+    expect(header).toBeInTheDocument();
 
-    // Confirma que o link que envolve as imagens aponta para a rota "/"
-    const logoLink = imageElements[0].closest('a');
-    expect(logoLink).toHaveAttribute('href', '/');
+    // Duas imagens com alt "Logo Fandomize"
+    const logos = screen.getAllByAltText("Logo Fandomize");
+    expect(logos).toHaveLength(2);
 
-    // Verifica a presença dos links do menu (desktop)
-    expect(screen.getByText('Recursos')).toBeInTheDocument();
-    expect(screen.getByText('Sobre')).toBeInTheDocument();
-    expect(screen.getByText('Contato')).toBeInTheDocument();
+    // Ambas dentro de um <a href="/">
+    const link = logos[0].closest("a");
+    expect(link).toHaveAttribute("href", "/");
 
-    // Verifica os atributos href dos links do menu
-    const recursosLink = screen.getByText('Recursos').closest('a');
-    expect(recursosLink).toHaveAttribute('href', '#features');
+    // Links do menu desktop
+    const recursosLink = screen.getByRole("link", { name: "Recursos" });
+    expect(recursosLink).toHaveAttribute("href", "#features");
 
-    const sobreLink = screen.getByText('Sobre').closest('a');
-    expect(sobreLink).toHaveAttribute('href', '#about');
+    const sobreLink = screen.getByRole("link", { name: "Sobre" });
+    expect(sobreLink).toHaveAttribute("href", "#about");
 
-    const contatoLink = screen.getByText('Contato').closest('a');
-    expect(contatoLink).toHaveAttribute('href', '#contact');
+    const contatoLink = screen.getByRole("link", { name: "Contato" });
+    expect(contatoLink).toHaveAttribute("href", "#contact");
   });
 
-  test('o elemento header possui as classes CSS corretas', () => {
+  it("o header possui as classes CSS corretas", () => {
     const { container } = render(<Header />);
-    const headerElement = container.querySelector('header');
-    
-    expect(headerElement).toHaveClass('w-full');
-    expect(headerElement).toHaveClass('p-4');
-    expect(headerElement).toHaveClass('flex');
-    expect(headerElement).toHaveClass('items-center');
-    expect(headerElement).toHaveClass('justify-between');
-    expect(headerElement).toHaveClass('text-white');
-    expect(headerElement).toHaveClass('bg-white/40');
-    expect(headerElement).toHaveClass('shadow-lg');
+    const header = container.querySelector("header");
+    expect(header).toHaveClass(
+      "w-full",
+      "md:p-4",
+      "py-0",
+      "px-2",
+      "flex",
+      "items-center",
+      "justify-between",
+      "bg-white/40",
+      "text-white",
+      "shadow-lg",
+    );
   });
 
-  test('combina com o snapshot', () => {
+  it("combina com o snapshot", () => {
     const { asFragment } = render(<Header />);
     expect(asFragment()).toMatchSnapshot();
   });
 
-  // Testes adicionais para o menu mobile
-
-  test('não exibe o menu mobile por padrão', () => {
+  it("não exibe o menu mobile por padrão", () => {
     render(<Header />);
-    // O overlay do menu mobile possui as classes 'fixed inset-0'
-    const overlay = document.querySelector('div.fixed.inset-0');
-    expect(overlay).toBeNull();
+    expect(document.querySelector("div.fixed.inset-0")).not.toBeInTheDocument();
   });
 
-  test('exibe o menu mobile ao clicar no botão de toggle', () => {
+  it("abre e fecha o menu mobile ao clicar no toggle", () => {
     render(<Header />);
-    const toggleButton = screen.getByLabelText('Toggle menu');
+    const toggleButton = screen.getByLabelText("Toggle menu");
+
+    // Abre
     fireEvent.click(toggleButton);
-    
-    const overlay = document.querySelector('div.fixed.inset-0');
+    const overlay = document.querySelector("div.fixed.inset-0");
     expect(overlay).toBeInTheDocument();
-    // Verifica também se o botão de fechar (dentro do overlay) está presente
-    const closeButton = screen.getByLabelText('Close menu');
-    expect(closeButton).toBeInTheDocument();
+
+    // Fecha via mesmo botão
+    fireEvent.click(toggleButton);
+    expect(document.querySelector("div.fixed.inset-0")).not.toBeInTheDocument();
   });
 
-  test('fecha o menu mobile ao clicar no botão de fechar', () => {
+  it("fecha o menu mobile ao clicar no botão de fechar interno", () => {
     render(<Header />);
-    const toggleButton = screen.getByLabelText('Toggle menu');
-    fireEvent.click(toggleButton);
-    
-    const closeButton = screen.getByLabelText('Close menu');
+    fireEvent.click(screen.getByLabelText("Toggle menu"));
+
+    const closeButton = screen.getByLabelText("Close menu");
     fireEvent.click(closeButton);
-    
-    const overlay = document.querySelector('div.fixed.inset-0');
-    expect(overlay).toBeNull();
+
+    expect(document.querySelector("div.fixed.inset-0")).not.toBeInTheDocument();
   });
 
-  test('fecha o menu mobile ao clicar em um link do menu', () => {
+  it("fecha o menu mobile ao clicar em um link do menu", () => {
     render(<Header />);
-    const toggleButton = screen.getByLabelText('Toggle menu');
-    fireEvent.click(toggleButton);
-    
-    // Após abrir o menu mobile, localiza o overlay
-    const overlay = document.querySelector('div.fixed.inset-0');
-    expect(overlay).toBeInTheDocument();
-    
-    // Usando o within, busca o link "Recursos" que está dentro do overlay
-    if (!overlay) {
-      throw new Error('Overlay not found');
-    }
-    const mobileRecursosLink = within(overlay as HTMLElement).getByText('Recursos');
-    fireEvent.click(mobileRecursosLink);
-    
-    // Após o clique, o overlay deve ser fechado
-    const overlayAfterClick = document.querySelector('div.fixed.inset-0');
-    expect(overlayAfterClick).toBeNull();
+    fireEvent.click(screen.getByLabelText("Toggle menu"));
+
+    const overlay = document.querySelector("div.fixed.inset-0") as HTMLElement;
+    const recursosMobile = within(overlay).getByRole("link", {
+      name: "Recursos",
+    });
+    fireEvent.click(recursosMobile);
+
+    expect(document.querySelector("div.fixed.inset-0")).not.toBeInTheDocument();
   });
 });

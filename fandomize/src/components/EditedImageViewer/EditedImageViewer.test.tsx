@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /**
  * @jest-environment jsdom
  */
@@ -10,7 +11,6 @@ import { useRouter } from "next/navigation";
 // Mock Next.js Image to render a plain <img>
 jest.mock("next/image", () => ({
   __esModule: true,
-  // eslint-disable-next-line @next/next/no-img-element
   default: ({ src, alt, ...props }: React.ComponentProps<"img">) => (
     <img src={src} alt={alt} {...props} />
   ),

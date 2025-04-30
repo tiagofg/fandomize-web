@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /**
  * @jest-environment jsdom
  */
@@ -16,7 +17,6 @@ jest.mock("@/contexts/TransformContext", () => ({
 }));
 jest.mock("next/image", () => ({
   __esModule: true,
-  // eslint-disable-next-line @next/next/no-img-element
   default: ({
     src,
     alt,

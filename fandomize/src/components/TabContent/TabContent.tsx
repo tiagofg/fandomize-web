@@ -60,9 +60,14 @@ export default function TabContent({
         "Opa! Parece que a sua solicitação violou alguma de nossas políticas de uso. " +
         "Tente ajustar a imagem ou os detalhes e envie novamente.";
 
+      const invalidImageMsg =
+        "Opa! Parece que a imagem que você selecionou é de um formato inválido " +
+        "ou ocorreu um problema na compressão. Por favor, tente novamente com uma imagem diferente."
+        + "De preferência, use arquivos JPEG, PNG ou WebP com até 4MB.";
+
       const displayMsg = result.error.includes("security")
-        ? policyMsg
-        : "Ocorreu um erro inesperado. Tente novamente mais tarde.";
+        ? policyMsg : result.error.includes("Invalid file") ? invalidImageMsg
+          : "Ocorreu um erro inesperado. Tente novamente mais tarde.";
 
       localStorage.setItem("errorMsg", displayMsg);
 
@@ -107,11 +112,10 @@ export default function TabContent({
         <button
           onClick={() => go(-1)}
           disabled={activeTab === 0}
-          className={`py-2 px-4 rounded font-bold transition-colors cursor-pointer ${
-            activeTab === 0
+          className={`py-2 px-4 rounded font-bold transition-colors cursor-pointer ${activeTab === 0
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-white/20 hover:bg-white/30 text-white"
-          }`}
+            }`}
         >
           Voltar
         </button>
@@ -121,11 +125,10 @@ export default function TabContent({
             activeTab < steps.length - 1 ? go(1) : handleSubmit()
           }
           disabled={!isComplete}
-          className={`py-2 px-6 rounded font-bold transition-colors cursor-pointer ${
-            !isComplete
+          className={`py-2 px-6 rounded font-bold transition-colors cursor-pointer ${!isComplete
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-[#FDCB6E] hover:bg-yellow-400 text-[#6C5CE7]"
-          }`}
+            }`}
         >
           {activeTab < steps.length - 1 ? "Continuar" : "Enviar"}
         </button>

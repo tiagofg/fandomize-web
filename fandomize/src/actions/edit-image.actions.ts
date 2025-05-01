@@ -3,7 +3,7 @@
 export async function editImageAction(
   file: File,
   imageStyle: string,
-  additionalDetails: string
+  additionalDetails: string,
 ): Promise<string | { error: string }> {
   console.log("Iniciando edição de imagem...");
   console.log("Arquivo recebido:", file);
@@ -22,7 +22,7 @@ export async function editImageAction(
   formData.append("image_style", imageStyle);
   formData.append("additional_details", additionalDetails);
 
-  const res = await fetch(`${serviceUrl}/edit-image/`, {
+  const res = await fetch(`${serviceUrl}/edit-image`, {
     method: "POST",
     body: formData,
   });

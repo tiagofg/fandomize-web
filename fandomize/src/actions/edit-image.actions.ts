@@ -32,7 +32,7 @@ export async function editImageAction(
 
     console.error(`Erro ao editar imagem: ${res.status} – ${text}`);
 
-    return { error: "security" };
+    return { error: text };
   }
 
   const { image: base64 } = await res.json();

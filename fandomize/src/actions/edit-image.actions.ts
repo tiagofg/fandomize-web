@@ -3,7 +3,7 @@
 export async function editImageAction(
   file: File,
   imageStyle: string,
-  additionalDetails: string
+  additionalDetails: string,
 ): Promise<string | { error: string }> {
   console.log("Iniciando edição de imagem...");
   console.log("Arquivo recebido:", file);
@@ -32,7 +32,7 @@ export async function editImageAction(
 
     console.error(`Erro ao editar imagem: ${res.status} – ${text}`);
 
-    return { error: "security" };
+    return { error: text };
   }
 
   const { image: base64 } = await res.json();

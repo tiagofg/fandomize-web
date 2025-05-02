@@ -32,7 +32,7 @@ export default function SelectImage() {
     }
 
     setError(null);
-    
+
     return true;
   };
 
@@ -42,12 +42,12 @@ export default function SelectImage() {
     if (!file) return;
     if (!validateFile(file)) return;
 
-    const FOUR_MB = 4 * 1024 * 1024;
+    const THREE_MB = 3 * 1024 * 1024;
 
-    if (file.size > FOUR_MB) {
+    if (file.size > THREE_MB) {
       setIsCompressing(true);
       try {
-        const compressed = await compressImageFile(file, { maxSizeMB: 4 });
+        const compressed = await compressImageFile(file, { maxSizeMB: 3 });
         setUploadedImage(compressed);
       } catch (err) {
         console.error("Falha ao comprimir, usando original:", err);
@@ -96,9 +96,7 @@ export default function SelectImage() {
         nova realidade. Na próxima etapa você decide o estilo — prepare-se!
       </p>
 
-      {error && (
-        <p className="text-sm text-red-500 mb-4">{error}</p>
-      )}
+      {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
 
       {!preview ? (
         <label

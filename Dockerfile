@@ -20,6 +20,7 @@ ENV NODE_ENV=production
 ENV PORT=3000
 ENV NEXT_TELEMETRY_DISABLED=1
 
+COPY --from=builder /app/fandomize/next.config.ts ./
 COPY --from=builder /app/fandomize/.next  ./.next
 COPY --from=builder /app/fandomize/public ./public
 COPY --from=builder /app/fandomize/package*.json ./

@@ -49,53 +49,68 @@ export default function TabContent({
     setLoading(true);
     setErrorMsg("");
 
-    const result = await editImageAction(
-      uploadedImage,
-      imageStyle,
-      additionalDetails
-    );
+    try {
+      const result = await editImageAction(
+        uploadedImage,
+        imageStyle,
+        additionalDetails,
+      );
 
-    if (typeof result === "object" && "error" in result) {
-      const policyMsg =
-        "Opa! Parece que a sua solicitação violou alguma de nossas políticas de uso. " +
-        "Tente ajustar a imagem ou os detalhes e envie novamente.";
+      if (typeof result === "object" && "error" in result) {
+        const policyMsg =
+          "Opa! Parece que a sua solicitação violou alguma de nossas políticas de uso. " +
+          "Tente ajustar a imagem ou os detalhes e envie novamente.";
 
-      const invalidImageMsg =
-        "Opa! Parece que a imagem que você selecionou é de um formato inválido " +
-        "ou ocorreu um problema na compressão. Por favor, tente novamente com uma imagem diferente."
-        + "De preferência, use arquivos JPEG, PNG ou WebP com até 4MB.";
+        const invalidImageMsg =
+          "Opa! Parece que a imagem que você selecionou é de um formato inválido " +
+          "ou ocorreu um problema na compressão. Por favor, tente novamente com uma imagem diferente." +
+          "De preferência, use arquivos JPEG, PNG ou WebP com até 4MB.";
 
-      const displayMsg = result.error.includes("security")
-        ? policyMsg : result.error.includes("Invalid file") ? invalidImageMsg
-          : "Ocorreu um erro inesperado. Tente novamente mais tarde.";
+        const displayMsg = result.error.includes("security")
+          ? policyMsg
+          : result.error.includes("Invalid file")
+            ? invalidImageMsg
+            : "Ocorreu um erro inesperado. Tente novamente mais tarde.";
 
-      localStorage.setItem("errorMsg", displayMsg);
+        localStorage.setItem("errorMsg", displayMsg);
 
-      setErrorMsg(displayMsg);
-      setLoading(false);
+        setErrorMsg(displayMsg);
+        setLoading(false);
 
-      return;
+        return;
+      }
+
+      const base64 = result as string;
+
+      localStorage.removeItem("activeTab");
+      localStorage.removeItem("additionalDetails");
+      localStorage.removeItem("imageStyle");
+      localStorage.removeItem("styleDetails");
+      localStorage.removeItem("uploadedImageData");
+      localStorage.removeItem("uploadedImageName");
+      localStorage.removeItem("uploadedImageType");
+
+      localStorage.setItem("editedImageBase64", base64);
+
+      router.push("/resultado");
+    } catch (error) {
+      console.error("Erro ao editar imagem:", error);
+
+      const msg = "Ocorreu um erro inesperado. Tente novamente mais tarde.";
+
+      setErrorMsg(msg);
+
+      localStorage.setItem("errorMsg", msg);
     }
-
-    const base64 = result as string;
-
-    localStorage.removeItem("activeTab");
-    localStorage.removeItem("additionalDetails");
-    localStorage.removeItem("imageStyle");
-    localStorage.removeItem("styleDetails");
-    localStorage.removeItem("uploadedImageData");
-    localStorage.removeItem("uploadedImageName");
-    localStorage.removeItem("uploadedImageType");
-
-    localStorage.setItem("editedImageBase64", base64);
-
-    router.push("/resultado");
   };
 
   const steps = [
     { content: <SelectImage />, isComplete: Boolean(uploadedImage) },
     { content: <StyleSelection />, isComplete: imageStyle.trim() !== "" },
-    { content: <AdditionalInfo />, isComplete: additionalDetails.trim() !== "" },
+    {
+      content: <AdditionalInfo />,
+      isComplete: additionalDetails.trim() !== "",
+    },
     { content: <SummaryStep />, isComplete: true },
   ];
 
@@ -106,16 +121,19 @@ export default function TabContent({
     <div className="relative flex flex-col h-full justify-between space-y-4">
       <div className="overflow-y-auto flex-grow">{content}</div>
 
-      {activeTab === steps.length - 1 && errorMsg && <p className="text-red-500">{errorMsg}</p>}
+      {activeTab === steps.length - 1 && errorMsg && (
+        <p className="text-red-500">{errorMsg}</p>
+      )}
 
       <div className="flex justify-between items-center">
         <button
           onClick={() => go(-1)}
           disabled={activeTab === 0}
-          className={`py-2 px-4 rounded font-bold transition-colors cursor-pointer ${activeTab === 0
+          className={`py-2 px-4 rounded font-bold transition-colors cursor-pointer ${
+            activeTab === 0
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-white/20 hover:bg-white/30 text-white"
-            }`}
+          }`}
         >
           Voltar
         </button>
@@ -125,10 +143,11 @@ export default function TabContent({
             activeTab < steps.length - 1 ? go(1) : handleSubmit()
           }
           disabled={!isComplete}
-          className={`py-2 px-6 rounded font-bold transition-colors cursor-pointer ${!isComplete
+          className={`py-2 px-6 rounded font-bold transition-colors cursor-pointer ${
+            !isComplete
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-[#FDCB6E] hover:bg-yellow-400 text-[#6C5CE7]"
-            }`}
+          }`}
         >
           {activeTab < steps.length - 1 ? "Continuar" : "Enviar"}
         </button>

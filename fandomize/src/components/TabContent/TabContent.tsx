@@ -59,6 +59,7 @@ export default function TabContent({
       if (typeof result === "object" && "error" in result) {
         const policyMsg =
           "Opa! Parece que a sua solicitação violou alguma de nossas políticas de uso. " +
+          "Provavelmente, a sua solicitação contém alguma referência a conteúdos protegidos por direitos autorais. " +
           "Tente ajustar a imagem ou os detalhes e envie novamente.";
 
         const invalidImageMsg =
